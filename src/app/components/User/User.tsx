@@ -1,9 +1,15 @@
+import { type HTMLAttributes } from "react";
+import type { UserEntity } from "./user.entity";
 
-export function User() {
+interface UserComponentProps extends HTMLAttributes<HTMLDivElement> {
+    data: UserEntity
+}
+export function User({data, ...rest}: UserComponentProps) {
 
     return (
-        <div>
-            User name
+        <div {...rest}>
+            <p>{data.first_name} {data.last_name}</p>
+            <p>{data.email}</p>
         </div>
-    )
+    );
 }
