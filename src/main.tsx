@@ -6,6 +6,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './app/Login/Login.tsx';
 import { Dashboard } from './app/Dashboard/Dashboard.tsx';
+import { DashboardSettings } from './app/Dashboard/Settings/Dashboard_Settings.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     Component: Dashboard,
+    children: [
+      {index: true, Component: Dashboard},
+      {path: "settings", Component: DashboardSettings}
+    ]
   }
 ]);
 
