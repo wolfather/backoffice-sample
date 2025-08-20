@@ -8,23 +8,33 @@ interface PaginationProps {
 }
 export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCallback}: PaginationProps) {
     const [currentPage, setCurrentPage] = useState(1);
-    const [cursorPointer, setCursorPointer] = useState<Set<string>>(new Set<string>());
+    const [cursorPointer, setCursorPointer] = useState<Map<string, string>>(new Map());
     const page = Math.ceil(totalRecords / recordsPerPage);
     const isFirst = currentPage === 1;
     const isLast = currentPage === page;
 
     useEffect(() => {
-        const newCursorPointer = new Set<string>();
-        cursorPointer.forEach(o => {
-            newCursorPointer.add(o)
-        });
-        newCursorPointer.add(cursor);
-        setCursorPointer(() => newCursorPointer);
-    }, [cursor]);
+        setCursorPointer(() => {
+            const set = new Map();
+            set.set('zero', '')
+
+            return set
+        })
+    }, [setCursorPointer]);
+
+    useEffect(() => {
+        setCursorPointer((prev) => {
+            const set = new Map(prev);
+            set.set(cursor, cursor);
+
+            return set;
+        })
+    }, [setCursorPointer, cursor]);
 
     useEffect(() => {
         if (cursorCallback) {
-            cursorCallback(Array.from(cursorPointer)[currentPage -1]);
+            const values = Array.from(cursorPointer.values());
+            cursorCallback(values[currentPage -1]);
         }
     }, [currentPage]);
 
