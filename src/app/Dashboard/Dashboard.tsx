@@ -7,9 +7,6 @@ import { Pagination } from "../components/Pagination/Pagination";
 export function Dashboard() {
     const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'GET_USERS'});
 
-    console.log({data})
-
-
     if(loading) {
         return (
             <div>loading...</div>
@@ -26,7 +23,7 @@ export function Dashboard() {
             Dashboard
 
             {
-                data[0] ? 
+                !loading && data.length ? 
                 <div>
                     {data.map(user => (
                         <User key={user.id} data={user} />

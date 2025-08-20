@@ -29,7 +29,7 @@ export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCal
     }, [currentPage]);
 
     const btnCss = (param: boolean) => (
-        `bg-sky-${!param ? '500' : '300'} p-2 rounded-sm text-gray-${!param ? '100' : '400'} ${param ? 'disabled' : 'cursor-pointer enabled'}`
+        `background-color: var(--color-orange-${!param ? '500' : '300'}) p-2 rounded-sm text-gray-${!param ? '100' : '400'} ${param ? 'disabled' : 'cursor-pointer enabled'}`
     )
 
     return (
