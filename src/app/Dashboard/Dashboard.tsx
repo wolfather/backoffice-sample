@@ -1,28 +1,38 @@
-import dashboardData from "../../ __mock__/users.json"
-import { useEffect, useState } from "react"
+import { Outlet } from "react-router-dom";
 import { User } from "../components/User/User";
+import type { UserEntity } from "../components/User/user.entity";
+import { useGetData } from "../hooks/useGetData";
 
 export function Dashboard() {
-    const [users, setUsers] = useState<any[]>([])
+    const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'GET_USERS'});
 
-    useEffect(() => {
-        setUsers(dashboardData)
-    }, []);
+    console.log({data})
 
-    console.log({users})
+
+    if(loading) {
+        return (
+            <div>loading...</div>
+        );
+    }
+    if(err) {
+        return (
+            <div>{errMessage}</div>
+        )
+    }
 
     return (
         <div>
             Dashboard
 
             {
-                users[0] ? 
+                data[0] ? 
                 <div>
-                    {users.map(user => (
+                    {data.map(user => (
                         <User key={user.id} data={user} />
                     ))}
                 </div> : <></>
             }
+            <Outlet />
         </div>
     )
 }

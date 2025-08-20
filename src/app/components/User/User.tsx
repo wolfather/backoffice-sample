@@ -4,6 +4,7 @@ import type { UserEntity } from "./user.entity";
 interface UserComponentProps extends HTMLAttributes<HTMLDivElement> {
     data: UserEntity
 }
+
 export function User({data, ...rest}: UserComponentProps) {
 
     return (
