@@ -14,26 +14,30 @@ export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCal
     const isLast = currentPage === page;
 
     useEffect(() => {
-        const newCursorPointer = new Set<string>()
+        const newCursorPointer = new Set<string>();
         cursorPointer.forEach(o => {
             newCursorPointer.add(o)
-        })
-        newCursorPointer.add(cursor)
-        setCursorPointer(() => newCursorPointer)
+        });
+        newCursorPointer.add(cursor);
+        setCursorPointer(() => newCursorPointer);
     }, [cursor]);
 
     useEffect(() => {
         if (cursorCallback) {
-            cursorCallback(Array.from(cursorPointer)[currentPage -1])
+            cursorCallback(Array.from(cursorPointer)[currentPage -1]);
         }
-    }, [currentPage])
+    }, [currentPage]);
+
+    const btnCss = (param: boolean) => (
+        `bg-sky-${!param ? '500' : '300'} p-2 rounded-sm text-gray-${!param ? '100' : '400'} ${param ? 'disabled' : 'cursor-pointer enabled'}`
+    )
 
     return (
-        <div>
+        <div className="py-2">
             <p>
                 <span
                     role="button"
-                    className={isFirst ? 'disabled' : 'enabled'}
+                    className={btnCss(isFirst)}
                     onClick={() => {
                         if (!isFirst) {
                             setCurrentPage(prev => {
@@ -45,7 +49,7 @@ export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCal
                 &nbsp;<span>{currentPage}</span>&nbsp;
                 <span
                     role="button"
-                    className={isLast ? 'disabled' : 'enabled'}
+                    className={btnCss(isLast)}
                     onClick={() => {
                         if (!isLast) {
                             setCurrentPage(prev => {
@@ -57,6 +61,6 @@ export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCal
                     }}>next</span>
             </p>
         </div>
-    )
+    );
 
 }
