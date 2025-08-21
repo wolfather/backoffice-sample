@@ -1,5 +1,3 @@
-import dashboardData from "../../../ __mock__/users.json";
-import type { LoginProps } from "../../components/LoginForm/types";
 import { PATH } from "../../constants";
 
 interface FetchDataProps {
