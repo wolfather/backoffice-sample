@@ -6,7 +6,7 @@ interface FetchDataProps {
     path: keyof typeof PATH
     body?: unknown
 }
-export async function fetchData<T>({path, body}: FetchDataProps): Promise<T> {
+export async function postData<T>({path, body}: FetchDataProps): Promise<T> {
     const response = await fetch(PATH[path],  {
         method: 'POST',
         headers: {
@@ -17,12 +17,12 @@ export async function fetchData<T>({path, body}: FetchDataProps): Promise<T> {
     });
 
     const { ok } = response;
+
     if(!ok) {
         throw new Error()
     }
 
     const result = await response.json() as T;
-    console.log(result)
 
     return result;
 }

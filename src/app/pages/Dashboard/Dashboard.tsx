@@ -3,14 +3,9 @@ import { User } from "../../components/User/User";
 import type { UserEntity } from "../../components/User/user.entity";
 import { useGetData } from "../../hooks/useGetData";
 import { Pagination } from "../../components/Pagination/Pagination";
-import { SessionContext } from "../../providers/session";
-import { useContext } from "react";
 
 export function Dashboard() {
-    const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'GET_USERS'});
-    const { sessionToken } = useContext(SessionContext);
-
-    console.log('-->',{ sessionToken })
+    const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'USERS'});
 
     if(loading) {
         return (
@@ -23,21 +18,27 @@ export function Dashboard() {
         )
     }
 
+    if (data.data) {
+        return (
+            <div>
+                Dashboard
+                    <div>
+                        {data?.data.map(user => (
+                            <User key={user.id} data={user} />
+                        ))}
+
+                        <Pagination
+                            totalRecords={data.total}
+                            recordsPerPage={data.per_page}
+                        />
+                    </div>
+
+                <Outlet />
+            </div>
+        )
+    }
+
     return (
-        <div>
-            Dashboard
-
-            {
-                !loading && data.length ? 
-                <div>
-                    {data.map(user => (
-                        <User key={user.id} data={user} />
-                    ))}
-
-                    <Pagination totalRecords={30} recordsPerPage={5} />
-                </div> : <></>
-            }
-            <Outlet />
-        </div>
-    )
+        <></>
+    );
 }

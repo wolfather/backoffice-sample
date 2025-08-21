@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
-import { fetchData } from "../../services/fetch/fetch_data";
+import { postData } from "../../services/fetch/fetch_data";
 import { type LoginResponse, type LoginProps } from "./types";
 import { loginFormValidation } from "../../services/loginFormValidation/loginFormValidation";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SessionContext } from "../../providers/session";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -15,13 +17,16 @@ export function LoginForm() {
         formState: { errors, isSubmitting },
     } = useForm<LoginProps>();
 
+    const {setSessionToken} = useContext(SessionContext);
+
     const onSubmit = handleSubmit(async (data, e) => {
         e?.preventDefault();
         if(loginFormValidation(data)) {
-            fetchData<LoginResponse>({path: 'SUBMIT_LOGIN', body: data})
+            postData<LoginResponse>({path: 'SUBMIT_LOGIN', body: data})
                 .then(res => {
                     console.log(res)
                     if(res.token) {
+                        setSessionToken(res.token);
                         navigate('/dashboard');
                     }
                 })
