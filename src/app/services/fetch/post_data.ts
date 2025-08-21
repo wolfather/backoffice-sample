@@ -5,7 +5,8 @@ interface FetchDataProps {
     body?: unknown
 }
 export async function postData<T>({path, body}: FetchDataProps): Promise<T> {
-    const url = `${import.meta.env.VITE_BASE_API_URL}${PATH[path]}`
+    const url = PATH[path]
+
     const response = await fetch(url, {
         method: 'POST',
         headers: {
