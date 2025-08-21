@@ -1,32 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import type { PATH } from "../constants";
-import { postData } from "../services/fetch/fetch_data";
 import { SessionContext } from "../providers/session";
+import { getData } from "../services/fetch/get_data";
+import { type APIResponse } from "../components/User/user.entity";
 
 interface GetDataProps {
     path: keyof typeof PATH
+    params?: Record<string, string>
 }
 
 interface useGetDataResponse<T> {
     loading: boolean
-    data: T
+    data: APIResponse<T>
     err?: boolean
     errMessage?: string
 }
 
-export function useGetData<T>({path}: GetDataProps): useGetDataResponse<T> {
+export function useGetData<T>({path, params}: GetDataProps): useGetDataResponse<T> {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<T>(Object as T);
+    const [data, setData] = useState<APIResponse<T>>({} as APIResponse<T>);
     const [err, setErr] = useState(false);
     const [errMessage, setErrMessage] = useState('');
 
     const { sessionToken } = useContext(SessionContext);
+    console.log(sessionToken)
 
     useEffect(() => {
-        if(sessionToken) {
+        if(sessionToken.length >= 1) {
             setLoading(true);
-            postData<T>({ path })
-                .then(setData)
+            getData<T>({ path, params: params ?? undefined })
+                .then(res => {
+                    setData(res)
+                })
                 .catch(e => {
                     setErr(true)
                     setErrMessage(e)
@@ -35,7 +40,7 @@ export function useGetData<T>({path}: GetDataProps): useGetDataResponse<T> {
         } else {
             return;
         }
-    }, []);
+    }, [sessionToken, path]);
 
     return { loading, data, err, errMessage };
 }
