@@ -9,10 +9,13 @@ export interface CreateUserFormComponentProps<T extends Record<string, any>> {
 }
 
 export interface CreateUserProps {
-    email: string
+    name: string
     job: string
 }
 
 export interface CreateUserResponse {
-    token: string
+    createdAt : Date|string 
+    id: string
+    job: string
+    name: string
 }

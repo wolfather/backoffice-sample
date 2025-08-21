@@ -1,15 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { SessionContext } from "../../../providers/session";
 import { createUserValidation } from "../../../services/createUserValidation/createUserValidatation";
 import { postData } from "../../../services/fetch/fetch_data";
-import type { CreateUserProps } from "../../../components/createUserForm/types";
+import type { CreateUserProps, CreateUserResponse } from "../../../components/createUserForm/types";
+import { Input } from "../../../components/Input/Input";
 
 export function CreateAccount() {
     const navigate = useNavigate();
-    const [userEmail, setUserEmail] = useState('eve.holt@reqres.in');
-    const [userJob, setUserJob] = useState('');
+    const { sessionToken } = useContext(SessionContext);
 
     const {
         register,
@@ -17,16 +17,14 @@ export function CreateAccount() {
         formState: { errors, isSubmitting },
     } = useForm<CreateUserProps>();
 
-    const {sessionToken} = useContext(SessionContext);
 
     const onSubmit = handleSubmit(async (data, e) => {
             e?.preventDefault();
             if(createUserValidation(data)) {
-                postData<any>({path: 'USERS', body: data})
+                postData<CreateUserResponse>({path: 'USERS', body: data})
                     .then(res => {
-                        console.log(res)
-                        // if(res.token) {
-                        //     setSessionToken(res.token);
+                        console.log(res);
+                        // if (res.createdAt) {
                         //     navigate('/dashboard');
                         // }
                     })
@@ -42,33 +40,20 @@ export function CreateAccount() {
     return (
         <form onSubmit={onSubmit}>
             <fieldset>
-                <div className="bg-sky-50 p-4 mb-4 border-1 border-sky-300 rounded-lg">
-                    <input
-                        type="email"
-                        className="w-full"
-                        placeholder="e-mail"
-                        value={userEmail}
-                        {...register('email', {
-                            required: true,
-                            pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: "invalid pattern"
-                            }
-                        })}
+                <>
+                    <Input
+                        placeholder={"Your Name"}
+                        {...register('name', { required: true })}
                     />
-                    {errors.email ? <small>{errors.email?.message}</small> : <></>}
-                </div>
-
-                 <div className="bg-sky-50 p-4 mb-4 border-1 border-sky-300 rounded-lg">
-                    <input
-                        className="w-full"
-                        type="password"
-                        placeholder="job"
-                        value={userJob}
-                        {...register('job', {required: true})}
+                    {errors.name ? <small>{errors.name?.message}</small> : <></>}
+                </>
+                <>
+                    <Input
+                        placeholder={"Your Job"}
+                        {...register('job', { required: true })}
                     />
                     {errors.job ? <small>{errors.job?.message}</small> : <></>}
-                </div>
+                </>
 
             </fieldset>
             <div className="flex justify-end">
