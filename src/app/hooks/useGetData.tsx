@@ -21,7 +21,7 @@ export function useGetData<T>({path}: GetDataProps): useGetDataResponse<T> {
 
     useEffect(() => {
         setLoading(true);
-        fetchData<T>(path)
+        fetchData<T>({ path })
             .then(setData)
             .catch(e => {
                 setErr(true)

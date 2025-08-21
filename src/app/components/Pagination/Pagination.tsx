@@ -16,9 +16,9 @@ export function Pagination({totalRecords, recordsPerPage, cursor = '', cursorCal
     useEffect(() => {
         setCursorPointer(() => {
             const set = new Map();
-            set.set('zero', '')
+            set.set('zero', '');
 
-            return set
+            return set;
         })
     }, [setCursorPointer]);
 
