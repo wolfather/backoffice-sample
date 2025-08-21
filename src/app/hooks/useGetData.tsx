@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { PATH } from "../constants";
-import { fetchData } from "../services/fetch/fetch_data";
+import { postData } from "../services/fetch/fetch_data";
+import { SessionContext } from "../providers/session";
 
 interface GetDataProps {
     path: keyof typeof PATH
@@ -19,15 +20,21 @@ export function useGetData<T>({path}: GetDataProps): useGetDataResponse<T> {
     const [err, setErr] = useState(false);
     const [errMessage, setErrMessage] = useState('');
 
+    const { sessionToken } = useContext(SessionContext);
+
     useEffect(() => {
-        setLoading(true);
-        fetchData<T>({ path })
-            .then(setData)
-            .catch(e => {
-                setErr(true)
-                setErrMessage(e)
-            })
-            .finally(() => setLoading(false));
+        if(sessionToken) {
+            setLoading(true);
+            postData<T>({ path })
+                .then(setData)
+                .catch(e => {
+                    setErr(true)
+                    setErrMessage(e)
+                })
+                .finally(() => setLoading(false));
+        } else {
+            return;
+        }
     }, []);
 
     return { loading, data, err, errMessage };

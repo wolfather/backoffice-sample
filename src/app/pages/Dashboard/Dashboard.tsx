@@ -7,7 +7,7 @@ import { SessionContext } from "../../providers/session";
 import { useContext } from "react";
 
 export function Dashboard() {
-    const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'GET_USERS'});
+    const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'USERS'});
     const { sessionToken } = useContext(SessionContext);
 
     console.log('-->',{ sessionToken })
