@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './app/pages/Login/Login.tsx';
 import { Dashboard } from './app/pages/Dashboard/Dashboard.tsx';
 import { DashboardSettings } from './app/pages/Dashboard/Settings/Dashboard_Settings.tsx';
+import { SessionProvider } from './app/providers/session.tsx';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SessionProvider>
+      <RouterProvider router={router} />
+    </SessionProvider>
     
   </StrictMode>,
 )
