@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { SessionContext } from "../../../providers/session";
-import { createUserValidation } from "../../../services/createUserValidation/createUserValidatation";
-import { postData } from "../../../services/fetch/fetch_data";
-import type { CreateUserProps, CreateUserResponse } from "../../../components/createUserForm/types";
-import { Input } from "../../../components/Input/Input";
+import { SessionContext } from "../../providers/session";
+import { createUserValidation } from "../../services/createUserValidation/createUserValidatation";
+import { postData } from "../../services/fetch/fetch_data";
+import { Input } from "../Input/Input";
+import type { CreateUserProps, CreateUserResponse } from "./types";
 
-export function CreateAccount() {
+export function CreateAccountForm() {
     const navigate = useNavigate();
     const { sessionToken } = useContext(SessionContext);
 
@@ -33,7 +33,7 @@ export function CreateAccount() {
     
 
     if (sessionToken) {
-        navigate('/dashboard')
+        navigate('/dashboard');
         return;
     }
 

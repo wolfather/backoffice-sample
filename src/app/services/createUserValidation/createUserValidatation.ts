@@ -1,4 +1,4 @@
-import type { CreateUserProps } from "../../components/createUserForm/types";
+import type { CreateUserProps } from "../../components/createAccountForm/types";
 
 export function createUserValidation(data: CreateUserProps): boolean {
     return (
