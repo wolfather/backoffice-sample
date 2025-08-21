@@ -1,5 +1,3 @@
-import dashboardData from "../../../ __mock__/users.json";
-import type { LoginProps } from "../../components/LoginForm/types";
 import { PATH } from "../../constants";
 
 interface FetchDataProps {
@@ -7,7 +5,8 @@ interface FetchDataProps {
     body?: unknown
 }
 export async function postData<T>({path, body}: FetchDataProps): Promise<T> {
-    const response = await fetch(PATH[path],  {
+    const url = `${import.meta.env.VITE_BASE_API_URL}${PATH[path]}`
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

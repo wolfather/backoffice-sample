@@ -5,6 +5,7 @@ import { loginFormValidation } from "../../services/loginFormValidation/loginFor
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { SessionContext } from "../../providers/session";
+import { Input } from "../Input/Input";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ export function LoginForm() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, isDirty },
     } = useForm<LoginProps>();
 
     const {setSessionToken} = useContext(SessionContext);
@@ -36,12 +37,11 @@ export function LoginForm() {
     return (
         <form onSubmit={onSubmit}>
             <fieldset>
-                <div className="bg-sky-50 p-4 mb-4 border-1 border-sky-300 rounded-lg">
-                    <input
+                <>
+                    <Input
                         type="email"
-                        className="w-full"
-                        placeholder="e-mail"
                         value={userEmail}
+                        placeholder={"Your e-mail"}
                         {...register('email', {
                             required: true,
                             pattern: {
@@ -51,26 +51,23 @@ export function LoginForm() {
                         })}
                     />
                     {errors.email ? <small>{errors.email?.message}</small> : <></>}
-                </div>
-
-                 <div className="bg-sky-50 p-4 mb-4 border-1 border-sky-300 rounded-lg">
-                    <input
-                        className="w-full"
+                </>
+                <>
+                    <Input
                         type="password"
-                        placeholder="password"
+                        placeholder={"password"}
                         value={userPass}
                         {...register('password', {required: true})}
                     />
                     {errors.password ? <small>{errors.password?.message}</small> : <></>}
-                </div>
-
+                </>
             </fieldset>
             <div className="flex justify-end">
                 <input
-                    className={`${!isSubmitting ? 'cursor-pointer' : ''} bg-green-200 p-3 text-2 rounded-lg`}
-                    disabled={isSubmitting}
+                    className={`${(!isSubmitting || isDirty) ? 'cursor-pointer' : ''} bg-green-200 p-3 text-2 rounded-lg`}
+                    disabled={isSubmitting || !isDirty}
                     type='submit'
-                    value='Login'
+                    value={!isSubmitting ? 'Login' : 'Entering'}
                 />
             </div>
         </form>
