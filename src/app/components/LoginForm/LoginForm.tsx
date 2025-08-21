@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { postData } from "../../services/fetch/fetch_data";
+import { postData } from "../../services/fetch/post_data";
 import { type LoginResponse, type LoginProps } from "./types";
 import { loginFormValidation } from "../../services/loginFormValidation/loginFormValidation";
 import { useNavigate } from "react-router-dom";

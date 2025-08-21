@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { SessionContext } from "../../providers/session";
 import { createUserValidation } from "../../services/createUserValidation/createUserValidatation";
-import { postData } from "../../services/fetch/fetch_data";
+import { postData } from "../../services/fetch/post_data";
 import { Input } from "../Input/Input";
 import type { CreateUserProps, CreateUserResponse } from "./types";
 

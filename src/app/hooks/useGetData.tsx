@@ -40,7 +40,7 @@ export function useGetData<T>({path, params}: GetDataProps): useGetDataResponse<
         } else {
             return;
         }
-    }, [sessionToken, path]);
+    }, [sessionToken, path, params]);
 
     return { loading, data, err, errMessage };
 }
