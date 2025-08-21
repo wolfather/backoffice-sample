@@ -3,9 +3,14 @@ import { User } from "../../components/User/User";
 import type { UserEntity } from "../../components/User/user.entity";
 import { useGetData } from "../../hooks/useGetData";
 import { Pagination } from "../../components/Pagination/Pagination";
+import { SessionContext } from "../../providers/session";
+import { useContext } from "react";
 
 export function Dashboard() {
     const { data, loading, err, errMessage } = useGetData<UserEntity[]>({path: 'GET_USERS'});
+    const { sessionToken } = useContext(SessionContext);
+
+    console.log('-->',{ sessionToken })
 
     if(loading) {
         return (
