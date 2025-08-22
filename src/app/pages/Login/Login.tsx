@@ -1,6 +1,6 @@
 import { CreateAccountForm } from "../../components/createAccountForm/createAccountForm";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SessionContext } from "../../providers/session";
 import { useNavigate } from "react-router-dom";
 
@@ -17,12 +17,6 @@ export default function Login() {
         navigate('/dashboard', { replace: true });
     }
     }, [sessionToken, navigate]);
-
-    // useEffect(() => {
-    //     if(sessionToken !== null) {
-    //         navigate('/dashboard', {replace: true});
-    //     }
-    // }, [sessionToken, navigate]);
 
     return (
         <div>
