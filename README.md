@@ -1,7 +1,7 @@
 # Backoffice Sample
 
 ## Application running E2E test
-<video src="./cypress/videos/Login.cy.js.mp4" controls autoplay loop muted />
+
 [Watch the test running](./cypress/videos/Login.cy.js.mp4)
 
 ## Dev mode
