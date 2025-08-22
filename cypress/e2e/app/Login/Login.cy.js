@@ -73,12 +73,30 @@ describe('example to-do app', () => {
         
         cy.wait(2000)
 
+        const paginatorComponent = cy.get('[data-cy=paginator]')
+
+        const paginatorPrevious = paginatorComponent.get('[data-cy=paginator-previous]')
+        paginatorPrevious
+            .should('have.text', 'previous')
+            .should('have.attr', 'role', 'button')
+
+        const paginatorCurrentPage = paginatorComponent.get('[data-cy=paginator-currentPage]')
+        paginatorCurrentPage.should('have.text', '1')
+
+        const paginatorNext = paginatorComponent.get('[data-cy=paginator-next]')
+        paginatorNext
+            .should('have.text', 'next')
+            .should('have.attr', 'role', 'button')
+            .click()
+
+        cy.wait(4000)
+
         const headerLogoutButton = cy.get('[data-cy=header-logout-button]')
             headerLogoutButton
                 .should('have.text', 'logout')
                 .click()
 
-        cy.clock(1500)
+        cy.wait(1500)
 
         const homeTitle = cy.get('[data-cy=login-title]')
 
