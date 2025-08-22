@@ -65,7 +65,7 @@ export function LoginForm() {
             <div className="flex justify-end">
                 <input
                     className={`${(!isSubmitting || isDirty) ? 'cursor-pointer' : ''} bg-green-200 p-3 text-2 rounded-lg`}
-                    disabled={isSubmitting || !isDirty}
+                    disabled={isSubmitting}
                     type='submit'
                     value={!isSubmitting ? 'Login' : 'Entering'}
                 />
