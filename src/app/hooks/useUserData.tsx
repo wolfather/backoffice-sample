@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { CreateUserResponse } from "../components/createAccountForm/types";
+import type { CreateUserResponse } from "../components/CreateAccountForm/types";
 
 export function useUserData() {
 

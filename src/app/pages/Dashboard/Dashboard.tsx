@@ -27,7 +27,7 @@ function DashboardPage() {
 
     if (loading) {
         return (
-            <div>loading...</div>
+            <div data-cy='dashboard-loading'>loading...</div>
         );
     }
     if (err) {
@@ -40,11 +40,14 @@ function DashboardPage() {
         return (
             <div>
                 <Header />
-                <h1>Dashboard</h1>
+                <h1 data-cy='dashboard-title'>Dashboard</h1>
 
                 <div>
                     {data?.data.map(user => (
-                        <User key={user.id} data={user} />
+                        <User
+                            data-cy='dashboard-user-component'
+                            key={user.id}
+                            data={user} />
                     ))}
 
                     <Paginator

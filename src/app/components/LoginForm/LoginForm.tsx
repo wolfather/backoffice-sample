@@ -34,11 +34,12 @@ export function LoginForm() {
         }
     });
 
-    return (
+    return (<div data-cy='login-form'>
         <form onSubmit={onSubmit}>
             <fieldset>
                 <>
                     <Input
+                        data-cy='login-email-field'
                         type="email"
                         value={userEmail}
                         placeholder={"Your e-mail"}
@@ -54,8 +55,9 @@ export function LoginForm() {
                 </>
                 <>
                     <Input
+                        data-cy='login-pass-field'
                         type="password"
-                        placeholder={"password"}
+                        placeholder={"Your password"}
                         value={userPass}
                         {...register('password', {required: true})}
                     />
@@ -64,6 +66,7 @@ export function LoginForm() {
             </fieldset>
             <div className="flex justify-end">
                 <input
+                    data-cy='login-submit-button'
                     className={`${(!isSubmitting || isDirty) ? 'cursor-pointer' : ''} bg-green-200 p-3 text-2 rounded-lg`}
                     disabled={isSubmitting}
                     type='submit'
@@ -71,6 +74,6 @@ export function LoginForm() {
                 />
             </div>
         </form>
-    );
+    </div>);
 }
 

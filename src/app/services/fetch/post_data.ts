@@ -5,8 +5,8 @@ interface FetchDataProps {
     body?: unknown
 }
 export async function postData<T>({path, body}: FetchDataProps): Promise<T> {
-    const url = PATH[path]
-
+    const url = PATH[path];
+    console.log(url)
     const response = await fetch(url, {
         method: 'POST',
         headers: {

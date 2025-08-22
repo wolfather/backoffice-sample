@@ -9,7 +9,7 @@ import type { CreateUserProps, CreateUserResponse } from "./types";
 
 export function CreateAccountForm() {
     const navigate = useNavigate();
-    const { sessionToken } = useContext(SessionContext);
+    const { sessionToken, setUserData } = useContext(SessionContext);
 
     const {
         register,
@@ -24,9 +24,10 @@ export function CreateAccountForm() {
                 postData<CreateUserResponse>({path: 'USERS', body: data})
                     .then(res => {
                         console.log(res);
-                        // if (res.createdAt) {
-                        //     navigate('/dashboard');
-                        // }
+                        if (res.createdAt) {
+                            setUserData(res);
+                            navigate('/dashboard');
+                        }
                     })
             }
         });

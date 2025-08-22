@@ -1,7 +1,7 @@
 import { createContext, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 
 import { useUserData } from "../hooks/useUserData";
-import type { CreateUserResponse } from "../components/createAccountForm/types";
+import type { CreateUserResponse } from "../components/CreateAccountForm/types";
 
 interface SessionProviderProps {
     children: ReactNode

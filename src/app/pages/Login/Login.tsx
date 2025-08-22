@@ -1,4 +1,4 @@
-import { CreateAccountForm } from "../../components/createAccountForm/createAccountForm";
+import { CreateAccountForm } from "../../components/CreateAccountForm/createAccountForm";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { useContext, useEffect, useRef, useState } from "react";
 import { SessionContext } from "../../providers/session";
@@ -20,10 +20,11 @@ export default function Login() {
 
     return (
         <div>
-            <h1>Login</h1>
+            <h1 data-cy='login-title'>Login</h1>
 
             <div className="flex justify-center gap-3">
                 <span
+                    data-cy="signin-button"
                     className="w-40 cursor-pointer bg-green-400 p-3 text-2 rounded-lg"
                     onClick={() => setToggleFormVisible(true)}
                     role="button">Signin
