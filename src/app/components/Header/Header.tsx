@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
 import { SessionContext } from "../../providers/session";
-import type { CreateUserResponse } from "../createAccountForm/types";
+import type { CreateUserResponse } from "../CreateAccountForm/types";
 import { useNavigate } from "react-router-dom";
 
 function HeaderComponent() {
@@ -23,7 +23,8 @@ function HeaderComponent() {
             }
             </div>
             <div>
-                <span 
+                <span
+                    data-cy='header-logout-button'
                     className="w-30 cursor-pointer bg-gray-400 p-3 text-2 rounded-lg text-white" 
                     role="button" 
                     onClick={() => clearData()}>

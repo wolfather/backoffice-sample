@@ -6,7 +6,7 @@ interface FetchDataProps {
 }
 
 export function parseUrl({path, params}: FetchDataProps): string {
-    let url = new URL(`${import.meta.env.VITE_BASE_API_URL}${PATH[path]}`);
+    let url = new URL(PATH[path]);
     let urlParams = new URLSearchParams();
 
     if(params) {

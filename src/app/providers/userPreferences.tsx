@@ -23,12 +23,14 @@ export function UserPreferenceProvider({ children }: UserPreferenceProviderProps
         <UserPreferenceContext.Provider value={{userName: ''}}>
             <div className="flex gap-3">
                 <span 
+                    data-cy='theme-light-button'
                     className="w-30 cursor-pointer bg-gray-400 p-3 text-2 rounded-lg text-white" 
                     role="button" 
                     onClick={() => setTheme('light')}>
                     light
                 </span>
                 <span 
+                    data-cy='theme-dark-button'
                     className="w-30 cursor-pointer bg-gray-400 p-3 text-2 rounded-lg text-white" 
                     role="button" 
                     onClick={() => setTheme('dark')}>
