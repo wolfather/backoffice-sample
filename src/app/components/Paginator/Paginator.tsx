@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react"
+import { memo } from "react"
 
 interface PaginatorProps {
     totalRecords: number
@@ -8,16 +8,9 @@ interface PaginatorProps {
 }
 
 function PaginatorComponent({totalRecords, recordsPerPage, onPageChange, currentPage}: PaginatorProps) {
-    // const [currentPage, setCurrentPage] = useState(1);
     const page = Math.ceil(totalRecords / recordsPerPage);
     const isFirst = currentPage === 1;
     const isLast = currentPage === page;
-
-    // useEffect(() => {
-    //     if (cursorCallback) {
-    //         cursorCallback(currentPage);
-    //     }
-    // }, [currentPage]);
 
     const btnCss = (param: boolean) => (
         `background-color: var(--color-orange-${!param ? '500' : '300'}) p-2 rounded-sm text-gray-${!param ? '100' : '400'} ${param ? 'disabled' : 'cursor-pointer enabled'}`
