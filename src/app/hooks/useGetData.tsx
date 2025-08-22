@@ -26,7 +26,7 @@ export function useGetData<T>({path, params}: GetDataProps): useGetDataResponse<
     console.log(sessionToken)
 
     useEffect(() => {
-        if(sessionToken.length >= 1) {
+        if(sessionToken !== null) {
             setLoading(true);
             getData<T>({ path, params: params ?? undefined })
                 .then(res => {

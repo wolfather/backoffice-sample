@@ -1,9 +1,28 @@
 import { CreateAccountForm } from "../../components/createAccountForm/createAccountForm";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
-import { useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { SessionContext } from "../../providers/session";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [toggleFormVisible, setToggleFormVisible] = useState<boolean | null>(null);
+    const navigate = useNavigate();
+    const { sessionToken } = useContext(SessionContext);
+
+    const prevToken = useRef<string>("");
+
+    useEffect(() => {
+    if (sessionToken && prevToken.current !== sessionToken) {
+        prevToken.current = sessionToken;
+        navigate('/dashboard', { replace: true });
+    }
+    }, [sessionToken, navigate]);
+
+    // useEffect(() => {
+    //     if(sessionToken !== null) {
+    //         navigate('/dashboard', {replace: true});
+    //     }
+    // }, [sessionToken, navigate]);
 
     return (
         <div>

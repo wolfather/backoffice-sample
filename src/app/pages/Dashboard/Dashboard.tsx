@@ -1,19 +1,28 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { User } from "../../components/User/User";
 import type { UserEntity } from "../../components/User/user.entity";
 import { useGetData } from "../../hooks/useGetData";
 import { Paginator } from "../../components/Paginator/Paginator";
-import { memo, useMemo, useState } from "react";
+import { memo, useContext, useEffect, useMemo, useState } from "react";
+import { SessionContext } from "../../providers/session";
+import { Header } from "../../components/Header/Header";
 
 function DashboardPage() {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    
+    const navigate = useNavigate()    
     const params = useMemo(() => ({'page': String(currentPage)}), [currentPage]);
 
+    const { sessionToken } = useContext(SessionContext);
     const { data, loading, err, errMessage } = useGetData<UserEntity[]>({
         path: 'USERS', 
         params,
     });
+
+    useEffect(() => {
+        if (sessionToken === null) {
+            navigate('/', { replace: true });
+        }
+    }, [sessionToken, navigate]);
 
 
     if (loading) {
@@ -30,6 +39,7 @@ function DashboardPage() {
     if (data.data) {
         return (
             <div>
+                <Header />
                 <h1>Dashboard</h1>
 
                 <div>
@@ -49,10 +59,6 @@ function DashboardPage() {
             </div>
         )
     }
-
-    return (
-        <></>
-    );
 }
 
 export const Dashboard = memo(DashboardPage);

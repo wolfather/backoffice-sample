@@ -1,26 +1,37 @@
 import { createContext, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 
+import { useUserData } from "../hooks/useUserData";
+import type { CreateUserResponse } from "../components/createAccountForm/types";
+
 interface SessionProviderProps {
     children: ReactNode
 }
 
 interface SessionCTXProps {
-    sessionToken: string
-    setSessionToken: Dispatch<SetStateAction<string>>
+    sessionToken: string | null
+    setSessionToken: Dispatch<SetStateAction<string|null>>
+    userData: CreateUserResponse | null
+    setUserData: Dispatch<SetStateAction<CreateUserResponse>>
 }
 
 const sessionCtx: SessionCTXProps = {
-    sessionToken: '',
-    setSessionToken: () => {}
+    sessionToken: null,
+    setSessionToken: () => {},
+    userData: null,
+    setUserData: () => {},
 };
 
 export const SessionContext = createContext<SessionCTXProps>(sessionCtx);
 
 export function SessionProvider({ children }: SessionProviderProps) {
-    const [sessionToken, setSessionToken] = useState('');
+    const [sessionToken, setSessionToken] = useState<string | null>(null);
+    const { userData, setUserData } = useUserData();
 
     return (
-        <SessionContext.Provider value={{sessionToken, setSessionToken}}>
+        <SessionContext.Provider value={{
+            sessionToken, setSessionToken,
+            userData, setUserData,
+            }}>
             {children}
         </SessionContext.Provider>
     );
