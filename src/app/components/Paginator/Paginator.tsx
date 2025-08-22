@@ -17,9 +17,12 @@ function PaginatorComponent({totalRecords, recordsPerPage, onPageChange, current
     )
 
     return (
-        <div className="py-2">
+        <div 
+            data-cy='paginator' 
+            className="py-2">
             <p>
                 <span
+                    data-cy='paginator-previous'
                     role="button"
                     className={btnCss(isFirst)}
                     onClick={() => {
@@ -27,8 +30,9 @@ function PaginatorComponent({totalRecords, recordsPerPage, onPageChange, current
                             onPageChange(currentPage - 1);
                         }
                     }}>previous</span>
-                &nbsp;<span>{currentPage}</span>&nbsp;
+                &nbsp;<span data-cy='paginator-currentPage'>{currentPage}</span>&nbsp;
                 <span
+                    data-cy='paginator-next'
                     role="button"
                     className={btnCss(isLast)}
                     onClick={() => {
