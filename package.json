@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "teste2e": "npx cypress open",
+    "test:e2e": "npx cypress open",
+    "test:terminal": "npx cypress run --browser electron",
+    "test:video": "npx cypress run",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
