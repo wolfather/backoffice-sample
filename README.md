@@ -10,13 +10,14 @@ Run in cmd: ```npm run dev```
 ### In browser
 Open the Browser [localhost:5173](http://localhost:5173)
 
+## Deploy mode
 
-## How to run it
+In cmd, run:
 ```chmod +x build-run.sh && ./build-run.sh```
 
 ### In browser
-Open the Browser [localhost:3000](http://localhost:3000)
 
+Open the Browser [localhost:3000](http://localhost:3000)
 
 ## How to stop it
 
